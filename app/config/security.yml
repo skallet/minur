@@ -2,10 +2,16 @@
 # http://symfony.com/doc/current/book/security.html
 security:
 
+    encoders:
+        PalufBundle\Security\User\PalufUser: plaintext
+
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory:
             memory: ~
+
+        paluf_user_provider:
+          id: paluf_user_provider
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,10 +21,15 @@ security:
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
+            provider: paluf_user_provider
+            form_login:
+              login_path: /login
+              check_path: /login_check
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+              always_use_default_target_path: false
+              default_target_path:            /
+              target_path_parameter:          _target_path
+              use_referer:                    false
 
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+              post_only:      true
+              remember_me:    true
