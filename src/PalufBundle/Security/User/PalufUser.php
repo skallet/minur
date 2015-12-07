@@ -15,45 +15,27 @@ class PalufUser implements UserInterface, EquatableInterface
 {
 
     /**
-     * @var string
+     * @var UserInterface
      */
-    private $username;
-    /**
-     * @var string
-     */
-    private $password;
-    /**
-     * @var string
-     */
-    private $salt;
-    /**
-     * @var array
-     */
-    private $roles;
+    private $user;
 
-    public function __construct($username, $password, $salt, array $roles)
+    public function __construct(UserInterface $user)
     {
-        $this->username = $username;
-        $this->password = $password;
-        $this->salt = $salt;
-        $this->roles = $roles;
+
+        $this->user = $user;
     }
 
     public function isEqualTo(UserInterface $user)
     {
-        if (!$user instanceof PalufUser) {
+        if ($this->user->getPassword() !== $user->getPassword()) {
             return false;
         }
 
-        if ($this->password !== $user->getPassword()) {
+        if ($this->user->getSalt() !== $user->getSalt()) {
             return false;
         }
 
-        if ($this->salt !== $user->getSalt()) {
-            return false;
-        }
-
-        if ($this->username !== $user->getUsername()) {
+        if ($this->user->getUsername() !== $user->getUsername()) {
             return false;
         }
 
@@ -62,22 +44,22 @@ class PalufUser implements UserInterface, EquatableInterface
 
     public function getRoles()
     {
-        return $this->roles;
+        return $this->user->getRoles();
     }
 
     public function getPassword()
     {
-        return $this->password;
+        return $this->user->getPassword();
     }
 
     public function getSalt()
     {
-        return $this->salt;
+        return $this->user->getSalt();
     }
 
     public function getUsername()
     {
-        return $this->username;
+        return $this->user->getUsername();
     }
 
     public function eraseCredentials()

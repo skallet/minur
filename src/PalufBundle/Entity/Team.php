@@ -4,6 +4,8 @@ namespace PalufBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Team
@@ -11,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="team")
  * @ORM\Entity(repositoryClass="PalufBundle\Repository\TeamRepository")
  */
-class Team
+class Team implements  UserInterface
 {
     /**
      * @var int
@@ -170,6 +172,27 @@ class Team
     {
         return $this->tournaments;
     }
+
+    public function getRoles()
+    {
+        return ["ROLE_TEAM"];
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
+
 
 }
 

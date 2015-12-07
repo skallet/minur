@@ -40,7 +40,7 @@ class PalufUserProvider implements UserProviderInterface
             ->findOneBy(['email' => $username]);
 
         if ($user) {
-            return $user;
+            return new PalufUser($user);
         }
 
         $user = $this
@@ -49,7 +49,7 @@ class PalufUserProvider implements UserProviderInterface
             ->findOneBy(['email' => $username]);
 
         if ($user) {
-            return $user;
+            return new PalufUser($user);
         }
 
         throw new UsernameNotFoundException(
