@@ -33,6 +33,17 @@ class PageController extends Controller
         ));
     }
 
+    public function navbarAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $pages = $em->getRepository('PalufBundle:Page')->findAll();
+
+        return $this->render('PalufBundle:Page:navbar.html.twig', array(
+            'pages' => $pages,
+        ));
+    }
+
     /**
      * Creates a new Page entity.
      *

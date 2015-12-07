@@ -46,12 +46,10 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    {#
-                    {% for page in pages %}
-                        <li class="{% if app.request.attributes.get('_route') == 'page_show' %}active{% endif %}"><a href="{{ path('page_show', {'id': page.id}) }}">{{ page.title }}</a></li>
-                    {% endfor %}
-                    <li><a href="#">Turnaje</a></li>
-                    #}
+                    {{ render(controller(
+                        'PalufBundle:Page:navbar',
+                        {}
+                    )) }}
                 </ul>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
