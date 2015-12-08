@@ -17,17 +17,22 @@ use Symfony\Component\HttpFoundation\Request;
 class TournamentController extends Controller
 {
     /**
-     * @Route("/", name="tournament_list")
+     * @Route("/", name="admin_tournament_list")
      */
     public function indexAction()
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $pages = $em->getRepository('PalufBundle:Tournament')->findAll();
+
         return $this->render('PalufAdminBundle:Tournament:index.html.twig', array(
-            // ...
+            'tournaments' => $pages,
         ));
+
     }
 
     /**
-     * @Route("/create", name="tournament_new")
+     * @Route("/create", name="admin_tournament_new")
      */
     public function createAction(Request $request)
     {
@@ -40,7 +45,7 @@ class TournamentController extends Controller
             $em->persist($tournament);
             $em->flush();
 
-            return $this->redirectToRoute('tournament_view', array('id' => $tournament->getId()));
+            return $this->redirectToRoute('admin_tournament_view', array('id' => $tournament->getId()));
         }
 
         return $this->render('PalufAdminBundle:Tournament:create.html.twig', array(
@@ -50,7 +55,7 @@ class TournamentController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="tournament_view")
+     * @Route("/{id}", name="admin_tournament_view")
      */
     public function viewAction(Tournament $tournament)
     {
@@ -65,13 +70,13 @@ class TournamentController extends Controller
     /**
      * Displays a form to edit an existing Page entity.
      *
-     * @Route("/{id}/edit", name="tournament_edit")
+     * @Route("/{id}/edit", name="admin_tournament_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Tournament $tournament)
     {
         $deleteForm = $this->createDeleteForm($tournament);
-        $editForm = $this->createForm(new TournamentType(), $tournament);
+        $editForm = $this->createForm("PalufAdminBundle\\Form\\TournamentType", $tournament);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -79,7 +84,7 @@ class TournamentController extends Controller
             $em->persist($tournament);
             $em->flush();
 
-            return $this->redirectToRoute('tournament_edit', array('id' => $tournament->getId()));
+            return $this->redirectToRoute('admin_tournament_edit', array('id' => $tournament->getId()));
         }
 
         return $this->render('PalufAdminBundle:Tournament:edit.html.twig', array(
@@ -92,7 +97,7 @@ class TournamentController extends Controller
     /**
      * Deletes a Page entity.
      *
-     * @Route("/{id}", name="tournament_delete")
+     * @Route("/{id}", name="admin_tournament_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Tournament $tournament)
@@ -106,7 +111,7 @@ class TournamentController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('tournament_list');
+        return $this->redirectToRoute('admin_tournament_list');
     }
 
     /**
@@ -119,7 +124,7 @@ class TournamentController extends Controller
     private function createDeleteForm(Tournament $tournament)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('tournament_delete', array('id' => $tournament->getId())))
+            ->setAction($this->generateUrl('admin_tournament_delete', array('id' => $tournament->getId())))
             ->setMethod('DELETE')
             ->getForm()
             ;

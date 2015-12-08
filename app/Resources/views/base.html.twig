@@ -56,9 +56,9 @@
     </nav>
 
     <div class="col-xs-12">
-        {% block body %}
-
-        {% endblock %}
+        {% block beforebody %} {% endblock %}
+        {% block body %} {% endblock %}
+        {% block afterbody %} {% endblock %}
     </div>
 </div>
 

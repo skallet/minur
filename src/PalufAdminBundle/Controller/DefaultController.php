@@ -14,4 +14,10 @@ class DefaultController extends Controller
     {
         return $this->render('PalufAdminBundle:Default:index.html.twig');
     }
+
+    public function navbarAction()
+    {
+        return $this->render('PalufAdminBundle:Default:navbar.html.twig', array(
+        ));
+    }
 }

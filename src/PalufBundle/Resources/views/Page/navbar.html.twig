@@ -2,3 +2,4 @@
     <li class="{% if app.request.attributes.get('_route') == 'page_show' %}active{% endif %}"><a href="{{ path('page_show', {'id': page.id}) }}">{{ page.title }}</a></li>
 {% endfor %}
 <li><a href="#">Turnaje</a></li>
+<li><a href="/admin">Admin</a></li>

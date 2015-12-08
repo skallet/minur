@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block beforebody %}
+    {{ render(controller(
+    'PalufAdminBundle:Default:navbar',
+    {}
+    )) }}
+{% endblock %}
