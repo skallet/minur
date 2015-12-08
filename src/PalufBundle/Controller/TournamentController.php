@@ -25,10 +25,18 @@ class TournamentController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $userTournaments = [];
+
+        $userTeam = $this->get('security.token_storage')->getToken()->getUser();
+        if ($userTeam != "anon.")
+            $userTournaments = $userTeam->getUser()->getTournaments()->toArray();
+
+
         $tournaments = $em->getRepository('PalufBundle:Tournament')->findAll();
 
         return $this->render('PalufBundle:Tournament:index.html.twig', array(
             'tournaments' => $tournaments,
+            'userTournaments' => array_keys($userTournaments),
         ));
     }
 
