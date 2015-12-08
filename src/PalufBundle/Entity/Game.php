@@ -45,28 +45,28 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="a_result_1", type="string", length=255)
+     * @ORM\Column(name="a_result_1", type="integer", nullable=true)
      */
     private $aResult1;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="a_result_2", type="integer")
+     * @ORM\Column(name="a_result_2", type="integer", nullable=true)
      */
     private $aResult2;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="b_result_1", type="integer")
+     * @ORM\Column(name="b_result_1", type="integer", nullable=true)
      */
     private $bResult1;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="b_result_2", type="integer")
+     * @ORM\Column(name="b_result_2", type="integer", nullable=true)
      */
     private $bResult2;
 
@@ -84,6 +84,13 @@ class Game
      * @ORM\JoinColumn(name="final_term_id", referencedColumnName="id", nullable=true)
      */
     private $finalTerm;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="round", type="integer")
+     */
+    private $round;
 
     /**
      * Get id
@@ -280,6 +287,21 @@ class Game
         $this->finalTerm = $finalTerm;
     }
 
+    /**
+     * @return int
+     */
+    public function getRound()
+    {
+        return $this->round;
+    }
+
+    /**
+     * @param int $round
+     */
+    public function setRound($round)
+    {
+        $this->round = $round;
+    }
 
 }
 

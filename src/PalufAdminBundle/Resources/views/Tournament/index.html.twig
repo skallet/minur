@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Seznam turnajů</h1>
 
+    <a href="{{ path("admin_tournament_new") }}">Založit nový</a>
+
     <table class="table table-striped table-hover">
         <thead>
         <tr>
@@ -24,6 +26,9 @@
                 <td>{{ tournament.end|date("d. m. Y")  }}</td>
                 <td>
                     <ul>
+                        <li>
+                            <a href="{{ path('admin_game_list', { 'tournament': tournament.id }) }}">games</a>
+                        </li>
                         <li>
                             <a href="{{ path('admin_tournament_view', { 'id': tournament.id }) }}">show</a>
                         </li>

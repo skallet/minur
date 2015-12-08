@@ -26,7 +26,7 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $pages = $em->getRepository('PalufBundle:Page')->findAll();
+        $pages = $em->getRepository('PalufBundle:Page')->findBy([], ['ord'=>"asc"]);
 
         return $this->render('PalufAdminBundle:Page:index.html.twig', array(
             'pages' => $pages,

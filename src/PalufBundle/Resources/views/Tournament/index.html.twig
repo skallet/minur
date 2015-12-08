@@ -23,11 +23,11 @@
                     {{ tournament.end |date('d. m. Y') }}
                 </td>
                 <td>
-                    {% if tournament.deadline <= date() %}
+                    {% if tournament.deadline >= date() %}
                         probíhá přihlašování
-                    {% elseif date() >= tournament.start and date() <= tournament.end %}
+                    {% elseif tournament.start <= date() and tournament.end >= date() %}
                         probíhá
-                    {% elseif date() >= tournament.end %}
+                    {% elseif tournament.end <= date() %}
                         odehráno
                     {% else %}
                         &nbsp;

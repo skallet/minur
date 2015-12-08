@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Game list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Aresult1</th>
+                <th>Aresult2</th>
+                <th>Bresult1</th>
+                <th>Bresult2</th>
+                <th>Done</th>
+                <th>Round</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for game in games %}
+            <tr>
+                <td><a href="{{ path('game_show', { 'id': game.id }) }}">{{ game.id }}</a></td>
+                <td>{{ game.aResult1 }}</td>
+                <td>{{ game.aResult2 }}</td>
+                <td>{{ game.bResult1 }}</td>
+                <td>{{ game.bResult2 }}</td>
+                <td>{% if entity.done %}Yes{% else %}No{% endif %}</td>
+                <td>{{ game.round }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('game_show', { 'id': game.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('game_edit', { 'id': game.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('game_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

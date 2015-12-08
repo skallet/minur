@@ -1,0 +1,38 @@
+{% extends "PalufAdminBundle::base.html.twig" %}
+
+{% block title %}PalufAdminBundle:Game:view{% endblock %}
+
+{% block body %}
+    <h1>game turnaje {{  tournament.name }}</h1>
+
+    <table>
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ game.id }}</td>
+        </tr>
+        <tr>
+            <th>Tým A</th>
+            <td>{{ game.teamA.name }}</td>
+        </tr>
+        <tr>
+            <th>Tým B</th>
+            <td>{{ game.teamB.name }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_game_list', {'tournament': tournament.id}) }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_game_edit', { 'tournament': tournament.id, 'id': tournament.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+            <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
