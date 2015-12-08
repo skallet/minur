@@ -38,7 +38,7 @@ class Game
     /**
      * @var Tournament
      *
-     * @ORM\ManyToOne(targetEntity="Tournament")
+     * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="games")
      */
     private $tournament;
 
@@ -77,6 +77,13 @@ class Game
      */
     private $done;
 
+    /**
+     * @var Term
+     *
+     * @ORM\OneToOne(targetEntity="Term")
+     * @ORM\JoinColumn(name="final_term_id", referencedColumnName="id", nullable=true)
+     */
+    private $finalTerm;
 
     /**
      * Get id
@@ -256,5 +263,23 @@ class Game
     {
         return $this->done;
     }
+
+    /**
+     * @return Term
+     */
+    public function getFinalTerm()
+    {
+        return $this->finalTerm;
+    }
+
+    /**
+     * @param Term $finalTerm
+     */
+    public function setFinalTerm(Term $finalTerm)
+    {
+        $this->finalTerm = $finalTerm;
+    }
+
+
 }
 

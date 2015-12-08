@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ tournament.name }}</h1>
+
+    <div class="tabs">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#detail" aria-controls="home" role="tab" data-toggle="tab">Detail</a></li>
+                    <li role="presentation"><a href="#rozpis" aria-controls="profile" role="tab" data-toggle="tab">Rozpis a výsledky zápasů</a></li>
+                    <li role="presentation"><a href="#tymy" aria-controls="messages" role="tab" data-toggle="tab">Přihlášené týmy</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="detail">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>Začátek</th>
+                                <td>
+                                    {{ tournament.start |date("d. m. Y") }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Konec</th>
+                                <td>
+                                    {{ tournament.start |date("d. m. Y") }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="100">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Počet kol</th>
+                                <td>
+                                    {{ tournament.cntRounds }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Počet týmů</th>
+                                <td>
+                                    {{ tournament.cntteams }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="100">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>Přihlašování</th>
+                                <td>
+                                    {{ tournament.deadline |date("d. m. Y H:i") }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="rozpis">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>Datum a čas</th>
+                                <th>Místo</th>
+                                <th>Tým 1</th>
+                                <th>Tým 2</th>
+                                <th>Skóre</th>
+                            </tr>
+                            {% for game in tournament.games %}
+                                <tr>
+                                    <td>
+                                        {% if game.finalTerm %}
+                                            {{ game.finalTerm.start |date("d. M. Y H:i") }} - {{ game.finalTerm.end |date("d. M. Y H:i") }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if game.finalTerm %}
+                                            {{ game.finalTerm.place }}
+                                            {{ game.finalTerm.gps }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ game.teamA.name }}
+                                    </td>
+                                    <td>
+                                        {{ game.teamB.name }}
+                                    </td>
+                                    <td>
+                                        {% if game.end >= date() and game.aResult1 == game.bResult1 and game.aResult2 == game.bResult2 %}
+                                            {{ game.aResult1 }}:{{ game.aResult2 }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="tymy">
+                        <ul>
+                            {% for team in tournament.teams %}
+                                <li>{{ team.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
