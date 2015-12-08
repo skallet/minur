@@ -40,8 +40,12 @@
 
     <div class="container">
         <div class="col-xs-12 topmenu">
-            <a href="{{ path('login_route') }}">Přihlásit se</a>
-            | <a href="{{ path('registration_page') }}">Zaregistrovat tým</a>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <a class="link" href="{{ path('logout') }}">Odhlásit se</a>
+            {% else %}
+                <a href="{{ path('login_route') }}">Přihlásit se</a>
+                | <a href="{{ path('registration_page') }}">Zaregistrovat tým</a>
+            {% endif %}
         </div>
     </div>
     <!-- Static navbar -->
