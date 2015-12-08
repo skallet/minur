@@ -41,11 +41,7 @@
     <div class="container">
         <div class="col-xs-12 topmenu">
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                {{ app.user.username }}
-                {% if is_granted("ROLE_TEAM") %}
-                    | <a class="link" href="{{ path('team_landingpage') }}">Administrace týmu</a>
-                    | <a class="link" href="{{ path('team_tournaments') }}">Zápasy</a>
-                {% endif %}
+                Přihlášen jako: <strong>{{ app.user.username }}</strong>
                 {% if is_granted("ROLE_ADMIN") %}
                     | <a class="link" href="{{ path('admin_landingpage') }}">Administrace PALUF.cz</a>
                 {% endif %}

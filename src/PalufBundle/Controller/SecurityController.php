@@ -47,4 +47,13 @@ class SecurityController extends Controller
 
     }
 
+    /**
+     * @Route("/after-logout")
+     */
+    public function logoutSuccessAction()
+    {
+        $this->get('session')->getFlashBag()->add('notice', 'Odhlášení úspěšné.');
+        return $this->redirectToRoute('landingpage');
+    }
+
 }
