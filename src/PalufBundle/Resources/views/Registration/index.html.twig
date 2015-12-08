@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}PalufBundle:Registration:index{% endblock %}
+
+{% block body %}
+    <h1>Team registration</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}
