@@ -2,7 +2,7 @@
 
 namespace PalufTeamBundle\FormData;
 
-use Symfony\Component\Validator\Constraint as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Created by PhpStorm.
