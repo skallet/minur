@@ -74,12 +74,14 @@
                                     <td>
                                         {% if game.finalTerm %}
                                             {{ game.finalTerm.start |date("d. M. Y H:i") }} - {{ game.finalTerm.end |date("d. M. Y H:i") }}
+                                        {% else %} ?
                                         {% endif %}
                                     </td>
                                     <td>
                                         {% if game.finalTerm %}
                                             {{ game.finalTerm.place }}
                                             {{ game.finalTerm.gps }}
+                                        {% else %} ?
                                         {% endif %}
                                     </td>
                                     <td>
@@ -89,8 +91,9 @@
                                         {{ game.teamB.name }}
                                     </td>
                                     <td>
-                                        {% if game.end >= date() and game.aResult1 == game.bResult1 and game.aResult2 == game.bResult2 %}
+                                        {% if game.finalTerm and game.finalTerm.end >= date() and game.aResult1 == game.bResult1 and game.aResult2 == game.bResult2 %}
                                             {{ game.aResult1 }}:{{ game.aResult2 }}
+                                        {% else %} ?:?
                                         {% endif %}
                                     </td>
                                 </tr>
