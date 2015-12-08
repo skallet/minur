@@ -24,14 +24,21 @@ class Term
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="start", type="datetime")
+     * @ORM\Column(name="day", type="date")
+     */
+    private $day;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="start", type="time")
      */
     private $start;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="end", type="datetime")
+     * @ORM\Column(name="end", type="time")
      */
     private $end;
 
@@ -79,6 +86,23 @@ class Term
     {
         return $this->id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDay()
+    {
+        return $this->day;
+    }
+
+    /**
+     * @param mixed $day
+     */
+    public function setDay($day)
+    {
+        $this->day = $day;
+    }
+
 
     /**
      * Set start

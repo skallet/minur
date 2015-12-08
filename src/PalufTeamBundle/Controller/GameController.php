@@ -20,8 +20,14 @@ class GameController extends Controller
             throw $this->createNotFoundException();
         }
 
+        $em = $this->getDoctrine()->getManager();
+        $terms = $em->getRepository('PalufBundle:Term')->findBy(['game' => $game]);
+
         return $this->render('PalufTeamBundle:Game:index.html.twig', array(
-            // ...
+            "team" => $userTeam,
+            "game" => $game,
+            "tournament" => $game->getTournament(),
+            "terms" => $terms,
         ));
     }
 
