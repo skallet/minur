@@ -24,7 +24,17 @@
                 </td>
                 <td>
                     {% if tournament.deadline >= date() %}
-                        probíhá přihlašování
+
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and is_granted("ROLE_TEAM") %}
+                            {% if tournament.id in userTournaments %}
+                                Vás tým je přihlášen
+                                <a href="#" class="btn btn-warning">Odhlásit tým</a>
+                            {% else %}
+                                <a href="#" class="btn btn-success">Přihlásit tým</a>
+                            {% endif %}
+                        {% else %}
+                            probíhá přihlašování
+                        {% endif %}
                     {% elseif tournament.start <= date() and tournament.end >= date() %}
                         probíhá
                     {% elseif tournament.end <= date() %}
