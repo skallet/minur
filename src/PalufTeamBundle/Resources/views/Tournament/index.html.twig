@@ -10,6 +10,8 @@
         <tr>
             <th>Team A</th>
             <th>Team B</th>
+            <th>Stav</th>
+            <th>Akce</th>
         </tr>
         </thead>
         <tbody>
@@ -17,6 +19,12 @@
             <tr>
                 <td>{{ game.teamA.name }}</td>
                 <td>{{ game.teamB.name }}</td>
+                <td>{% if game.done %}Ukončeno{% else %}Probíhá{% endif %}</td>
+                <td>
+                    {% if not game.done %}
+                        <a href="{{ path('team_game', { 'id': game.id }) }}">Plánování</a>
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
         </tbody>
