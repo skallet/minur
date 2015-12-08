@@ -28,9 +28,9 @@
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and is_granted("ROLE_TEAM") %}
                             {% if tournament.id in userTournaments %}
                                 Vás tým je přihlášen
-                                <a href="#" class="btn btn-warning">Odhlásit tým</a>
+                                <a href="{{ path("team_tournament_unregister", {"id": tournament.id}) }}" class="btn btn-warning">Odhlásit tým</a>
                             {% else %}
-                                <a href="#" class="btn btn-success">Přihlásit tým</a>
+                                <a href="{{ path("team_tournament_register", {"id": tournament.id}) }}" class="btn btn-success">Přihlásit tým</a>
                             {% endif %}
                         {% else %}
                             probíhá přihlašování

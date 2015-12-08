@@ -261,6 +261,7 @@ class Tournament
         return $this->cntTeams;
     }
 
+
     /**
      * @return ArrayCollection
      */

@@ -2,6 +2,7 @@
 
 namespace PalufTeamBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use PalufBundle\Entity\Game;
 use PalufBundle\Entity\Team;
 use PalufBundle\Entity\Tournament;
@@ -33,6 +34,49 @@ class TournamentController extends Controller
             'team' => $userTeam,
             'games' => $games,
         ));
+    }
+
+
+
+    /**
+     * Finds and displays a Page entity.
+     *
+     * @Route("/tournament-reg/{id}", name="team_tournament_unregister")
+     */
+    public function unregisterAction(Tournament $tournament)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Team $userTeam */
+        $userTeam = $this->get('security.token_storage')->getToken()->getUser()->getUser();
+        $userTeam->getTournaments()->removeElement($tournament);
+        $tournament->getTeams()->removeElement($userTeam);
+        $em->persist($userTeam);
+        $em->persist($tournament);
+        $em->flush();
+
+        return $this->redirectToRoute('tournament_index');
+    }
+
+
+    /**
+     * Finds and displays a Page entity.
+     *
+     * @Route("/tournament-reg/{id}", name="team_tournament_register")
+     */
+    public function registerAction(Tournament $tournament)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Team $userTeam */
+        $userTeam = $this->get('security.token_storage')->getToken()->getUser()->getUser();
+        $userTeam->getTournaments()->add($tournament);
+        $tournament->getTeams()->add($userTeam);
+        $em->persist($userTeam);
+        $em->persist($tournament);
+        $em->flush();
+
+        return $this->redirectToRoute('tournament_index');
     }
 
 }
