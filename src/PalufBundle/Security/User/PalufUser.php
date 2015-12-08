@@ -25,6 +25,11 @@ class PalufUser implements UserInterface, EquatableInterface
         $this->user = $user;
     }
 
+    public function getUser()
+    {
+        return $this->user;
+    }
+
     public function isEqualTo(UserInterface $user)
     {
         if ($this->user->getPassword() !== $user->getPassword()) {

@@ -40,8 +40,20 @@
 
     <div class="container">
         <div class="col-xs-12 topmenu">
-            <a href="{{ path('login_route') }}">Přihlásit se</a>
-            | <a href="{{ path('registration_page') }}">Zaregistrovat tým</a>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                {{ app.user.username }}
+                {% if is_granted("ROLE_TEAM") %}
+                    | <a class="link" href="#">Administrace týmu</a>
+                    | <a class="link" href="{{ path('team_tournaments') }}">Zápasy</a>
+                {% endif %}
+                {% if is_granted("ROLE_ADMIN") %}
+                    | <a class="link" href="{{ path('admin_landingpage') }}">Administrace PALUF.cz</a>
+                {% endif %}
+                | <a class="link" href="{{ path('logout') }}">Odhlásit se</a>
+            {% else %}
+                <a href="{{ path('login_route') }}">Přihlásit se</a>
+                | <a href="{{ path('registration_page') }}">Zaregistrovat tým</a>
+            {% endif %}
         </div>
     </div>
     <!-- Static navbar -->
