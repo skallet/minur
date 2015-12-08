@@ -10,6 +10,14 @@
     <p>Pomocí tlačítka + můžete přidat návrh termínu. Po kliknutí na vlastní návrh jej můžete editovat.
         Po kliknutí na návrh soupeře jej můžete odsouhlasit.</p>
 
+    {% if game.finalTerm %}
+        <div class="alert alert-success">
+            Potvrzený termín: {{ game.finalTerm.day|date("D d. m. Y") }} od {{ game.finalTerm.start|date("H:i") }} do {{ game.finalTerm.end|date("H:i") }}<br>
+            Místo: {{ game.finalTerm.place }} {{ game.finalTerm.gps }}
+            <a href="{{ path("term_unconfirm", {"id": game.finalTerm.id}) }}" onclick="return confirm('Opravdu chcete zrušit potvrzení termínu?')" class="btn btn-danger">Zrušit potvrzení</a>
+        </div>
+    {% endif %}
+
     <style>
         .terms td{
             padding-top: 1px !important;
@@ -31,43 +39,36 @@
                     </tr>
                     <tr>
                         <td class="table-bordered" style="padding:0">
-                            {% for t in terms %}
-                                
-                            {% endfor %}
                             <table class="table terms table-hover">
-                                <!--
-                                <tr class="warning"><td
-                                            data-toggle="popover" data-content="
-                                    <table class='table'><tr class='warning'><th>Čas</th><td>
-                                    16.30 - 20.30
-                                    </td></tr><tr class='warning'><th>Míst</th><td>
-                                    Stromovka
-                                    </td></tr><tr class='warning'><td colspan='100'>&nbsp;</td></tr><tr class='warning'><th>Zadal</th><td>
-                                    DREAM TEAM
-                                    </td></tr><tr class='warning'><th>Počet hráčů</th><td>
-                                    12
-                                    </td></tr></table>
-                                    <a href='' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Smazat</a>
-                                    <a href='' class='btn btn-warning'><span class='glyphicon glyphicon-pencil'></span> Upravit</a>
-                                    "
-                                            >9.00 - 12.00</td></tr>
-                                <tr class="info"><td
-                                            data-toggle="popover" data-content="
-                                    <table class='table'><tr class='info'><th>Čas</th><td>
-                                    16.30 - 20.30
-                                    </td></tr><tr class='info'><th>Míst</th><td>
-                                    Stromovka
-                                    </td></tr><tr class='info'><td colspan='100'>&nbsp;</td></tr><tr class='info'><th>Zadal</th><td>
-                                    DRUHEJ DREAM TEAM
-                                    </td></tr><tr class='info'><th>Počet hráčů</th><td>
-                                    12
-                                    </td></tr></table>
-                                    <a href='' class='btn btn-success'><span class='glyphicon glyphicon-ok'></span> Potvrdit termín</a>
-                                    "
-                                            >9.00 - 12.00</td></tr>
-                                            -->
+                                {% for t in terms %}
+                                    {% if t.day|date("U") == x %}
+                                        {% set ismy = t.team.id == team.id ? true : false %}
+                                        {% set color = ismy ? "warning" : "info" %}
+                                        <tr class="{{ color }}"><td
+                                                    data-toggle="popover" data-content="
+                                            <table class='table'><tr class='{{ color }}'><th>Čas</th><td>
+                                            {{ t.start|date("H:i") }} - {{ t.end|date("H:i") }}
+                                            </td></tr><tr class='{{ color }}'><th>Místo</th><td>
+                                            {{ t.place }}
+                                            </td></tr><tr class='{{ color }}'><th>GPS</th><td>
+                                            {{ t.gps }}
+                                            </td></tr><tr class='{{ color }}'><td colspan='100'>&nbsp;</td></tr><tr class='{{ color }}'><th>Zadal</th><td>
+                                            {{ t.team.name }}
+                                            </td></tr><tr class='{{ color }}'><th>Počet hráčů</th><td>
+                                            {{ t.count }}
+                                            </td></tr></table>
+                                            {% if ismy %}
+                                                <a href='{{ path("term_delete", {'id':t.id}) }}' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Smazat</a>
+                                                <a href='{{ path("term_edit", {'id':t.id}) }}' class='btn btn-warning'><span class='glyphicon glyphicon-pencil'></span> Upravit</a>
+                                            {% else %}
+                                                <a onclick='return confirm(\'Opravdu chcete potvrdi tento termín soupeři?\')' href='{{ path("term_confirm", {'id':t.id}) }}' class='btn btn-success'><span class='glyphicon glyphicon-ok'></span> Potvrdit tento termín</a>
+                                            {% endif %}
+                                            "
+                                                    >{{ t.start|date("H:i") }} - {{ t.end|date("H:i") }}</td></tr>
+                                    {% endif %}
+                                {% endfor %}
                             </table>
-                            <a href="?s=term-add" class="label label-success pull-right"><big>+</big></a>
+                            <a href="{{ path("term_new", {'game': game.id, 'day':x|date("Y-m-d")}) }}" class="label label-success pull-right"><big>+</big></a>
                         </td>
                     </tr>
                 </table>

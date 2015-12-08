@@ -27,7 +27,7 @@
                             <tr>
                                 <th>Konec</th>
                                 <td>
-                                    {{ tournament.start |date("d. m. Y") }}
+                                    {{ tournament.end |date("d. m. Y") }}
                                 </td>
                             </tr>
                             <tr>
@@ -73,7 +73,9 @@
                                 <tr>
                                     <td>
                                         {% if game.finalTerm %}
-                                            {{ game.finalTerm.start |date("d. M. Y H:i") }} - {{ game.finalTerm.end |date("d. M. Y H:i") }}
+                                            {{ game.finalTerm.day |date("d. m. Y") }}
+                                            od
+                                            {{ game.finalTerm.start |date("H:i") }} do {{ game.finalTerm.end |date("H:i") }}
                                         {% else %} ?
                                         {% endif %}
                                     </td>

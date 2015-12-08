@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Game creation</h1>
+    <h1>Přidání návrhu na termín {{ day |date("D d. m. Y") }}</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
@@ -10,7 +10,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('game_index') }}">Back to the list</a>
+            <a href="{{ path('team_game', {'id': game.id}) }}">Zpět na zápas</a>
         </li>
     </ul>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Game edit</h1>
+    <h1>Úprava návrhu na termín {{ term.day |date("D d. m. Y") }}</h1>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
@@ -10,12 +10,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('game_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
+            <a href="{{ path('team_game', {'id': term.game.id}) }}">Zpět na zápas</a>
         </li>
     </ul>
 {% endblock %}

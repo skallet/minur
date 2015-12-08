@@ -282,7 +282,7 @@ class Game
     /**
      * @param Term $finalTerm
      */
-    public function setFinalTerm(Term $finalTerm)
+    public function setFinalTerm(Term $finalTerm=NULL)
     {
         $this->finalTerm = $finalTerm;
     }
