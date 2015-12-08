@@ -1,3 +1,8 @@
+paluf_team:
+    resource: "@PalufTeamBundle/Controller/"
+    type:     annotation
+    prefix:   /team
+
 paluf_admin:
     resource: "@PalufAdminBundle/Controller/"
     type:     annotation

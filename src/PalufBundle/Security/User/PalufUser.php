@@ -25,7 +25,7 @@ class PalufUser implements UserInterface, EquatableInterface
         $this->user = $user;
     }
 
-    public function getUser($user)
+    public function getUser()
     {
         return $this->user;
     }
