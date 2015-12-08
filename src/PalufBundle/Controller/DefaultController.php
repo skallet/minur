@@ -12,11 +12,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $pages = $em->getRepository('PalufBundle:Page')->findAll();
-
-        return $this->render('default/index.html.twig', [
-            'pages' => $pages,
-        ]);
+        return $this->redirect('/page/1', 302);
     }
 }
