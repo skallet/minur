@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class RegistrationController extends Controller
 {
@@ -37,6 +38,9 @@ class RegistrationController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($team);
                 $em->flush();
+
+                $token = new UsernamePasswordToken(new PalufUser($team), null, 'main', $team->getRoles());
+                $this->get('security.token_storage')->setToken($token);
 
                 return $this->redirectToRoute('landingpage');
             } catch (UniqueConstraintViolationException $e) {
