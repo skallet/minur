@@ -78,6 +78,12 @@ class Tournament
     private $teams;
 
     /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Game", mappedBy="tournament")
+     */
+    private $games;
+
+    /**
      * Get id
      *
      * @return int
@@ -261,6 +267,14 @@ class Tournament
     public function getTeams()
     {
         return $this->teams;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getGames()
+    {
+        return $this->games;
     }
 
 
