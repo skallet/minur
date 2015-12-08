@@ -41,7 +41,7 @@ class TournamentController extends Controller
     /**
      * Finds and displays a Page entity.
      *
-     * @Route("/tournament-reg/{id}", name="team_tournament_unregister")
+     * @Route("/tournament-unreg/{id}", name="team_tournament_unregister")
      */
     public function unregisterAction(Tournament $tournament)
     {
