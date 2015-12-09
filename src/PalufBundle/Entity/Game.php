@@ -2,6 +2,7 @@
 
 namespace PalufBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -91,6 +92,20 @@ class Game
      * @ORM\Column(name="round", type="integer")
      */
     private $round;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="game")
+     */
+    private $comments;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 
     /**
      * Get id

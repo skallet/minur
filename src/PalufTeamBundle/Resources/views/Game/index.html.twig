@@ -84,36 +84,55 @@
     <table class="table">
         <tr>
             <td class="table-bordered">
-                FORM
+                {{ form_start(score_form) }}
+                {{ form_widget(score_form) }}
+                {{ form_end(score_form) }}
             </td>
             <td>
 
             </td>
-            <td class="table-bordered">
-                souper jeste nezadal, pokud nexadal, jiank vypsat, co tam zadal a pokud nemame jeste zadano
-                <a class="btn btn-success btn-lg">Potvrdit soupeřův výsledek</a>
-            </td>
+            {% if team.id == game.teamA.id %}
+                {% if game.bResult1 != null %}
+                    <td class="table-bordered">
+                        Výsledek zadaný soupeřem: {{ game.bResult1 }}:{{ game.bResult2 }}
+                        <a class="btn btn-success btn-lg" href="{{ path('team_game_confirm', { 'id': game.id }) }}">Potvrdit soupeřův výsledek</a>
+                    </td>
+                {% endif %}
+            {% else %}
+                {% if game.aResult1 != null %}
+                    <td class="table-bordered">
+                        Výsledek zadaný soupeřem: {{ game.aResult1 }}:{{ game.aResult2 }}
+                        <a class="btn btn-success btn-lg" href="{{ path('team_game_confirm', { 'id': game.id }) }}">Potvrdit soupeřův výsledek</a>
+                    </td>
+                {% endif %}
+            {% endif %}
         </tr>
     </table>
 
 
     <h3>Komentáře</h3>
 
-    FORM vlozit<br>
-
+    {{ form_start(comment_form) }}
+    {{ form_widget(comment_form) }}
+    {{ form_end(comment_form) }}
 
     <hr>
-    <p><span class="label label-warning">DT</span> <span class="glyphicon glyphicon-calendar"></span> 21. 10. 1998 10.15</p>
-    <p>
-        Ahoj, todle sem napsal já
-    </p>
-    <hr>
 
-    <p><span class="label label-info">FIT</span> <span class="glyphicon glyphicon-calendar"></span> 21. 10. 1998 10.15</p>
-    <p>
-        A todle my
-    </p>
-    <hr>
+    {% for comment in game.comments %}
+        <p>
+            {% if comment.author.id == team.id %}
+                <span class="label label-primary">{{ team.name }}</span>
+            {% else %}
+                <span class="label label-warning">{{ comment.author.name }}</span>
+            {% endif %}
+            <span class="glyphicon glyphicon-calendar"></span>
+            {{ comment.datetime|date('d. m. Y H:i') }}
+        </p>
+        <p>
+            {{ comment.text }}
+        </p>
+        <hr>
+    {% endfor %}
 
     <script>
         $(function(){
