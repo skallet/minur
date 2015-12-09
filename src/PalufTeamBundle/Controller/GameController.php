@@ -4,6 +4,7 @@ namespace PalufTeamBundle\Controller;
 
 use PalufBundle\Entity\Comment;
 use PalufBundle\Entity\Game;
+use PalufTeamBundle\FormData\ScoreData;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +26,7 @@ class GameController extends Controller
         $em = $this->getDoctrine()->getManager();
         $terms = $em->getRepository('PalufBundle:Term')->findBy(['game' => $game]);
         $form = $this->createCommentForm($request);
+        $scoreForm = $this->createScoreForm($request);
 
         if ($form->isValid() && $form->isSubmitted()) {
             $data = $form->getData();
@@ -41,12 +43,42 @@ class GameController extends Controller
             return $this->redirect($request->getRequestUri());
         }
 
+        if ($scoreForm->isValid() && $scoreForm->isSubmitted()) {
+            $data = $scoreForm->getData();
+
+            if ($userTeam->getId() == $game->getTeamA()->getId()) {
+                $game->setAResult1($data->resultA);
+                $game->setAResult2($data->resultB);
+            } else {
+                $game->setBResult1($data->resultA);
+                $game->setBResult2($data->resultB);
+            }
+
+            $em->persist($game);
+            $em->flush();
+
+            return $this->redirect($request->getRequestUri());
+        } else {
+            $scoreData = new ScoreData();
+
+            if ($userTeam->getId() == $game->getTeamA()->getId()) {
+                $scoreData->resultA = $game->getAResult1();
+                $scoreData->resultB = $game->getAResult2();
+            } else {
+                $scoreData->resultA = $game->getBResult1();
+                $scoreData->resultB = $game->getBResult2();
+            }
+
+            $scoreForm->setData($scoreData);
+        }
+
         return $this->render('PalufTeamBundle:Game:index.html.twig', array(
             "team" => $userTeam,
             "game" => $game,
             "tournament" => $game->getTournament(),
             "terms" => $terms,
             "comment_form" => $form->createView(),
+            "score_form" => $scoreForm->createView(),
         ));
     }
 
@@ -55,6 +87,44 @@ class GameController extends Controller
         $form = $this->createForm("PalufTeamBundle\\Form\\CommentType");
         $form->handleRequest($request);
         return $form;
+    }
+
+    public function createScoreForm(Request $request)
+    {
+        $form = $this->createForm("PalufTeamBundle\\Form\\ScoreType");
+        $form->handleRequest($request);
+        return $form;
+    }
+
+    /**
+     * @Route("/game/{id}/confirm", name="team_game_confirm")
+     * @param Request $request
+     */
+    public function confirmAction(Request $request, Game $game)
+    {
+        $userTeam = $this->get('security.token_storage')->getToken()->getUser()->getUser();
+        if ($game->getTeamA()->getId() !== $userTeam->getId()
+            && $game->getTeamB()->getId() !== $userTeam->getId()) {
+            throw $this->createNotFoundException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        if ($userTeam->getId() == $game->getTeamA()->getId()) {
+            $game->setAResult1($game->getBResult1());
+            $game->setAResult2($game->getBResult2());
+        } else {
+            $game->setBResult1($game->getAResult1());
+            $game->setBResult2($game->getAResult2());
+        }
+        $game->setDone(true);
+
+        $em->persist($game);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('team_game', [
+            'id' => $game->getId(),
+        ]));
     }
 
 }
