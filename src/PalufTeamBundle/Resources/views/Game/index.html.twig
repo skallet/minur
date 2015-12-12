@@ -23,6 +23,10 @@
             padding-top: 1px !important;
             padding-bottom: 1px !important;;
         }
+        .pointerhand {
+            cursor: hand;
+            cursor: pointer;
+        }
     </style>
 
     <table class="table">
@@ -44,7 +48,7 @@
                                     {% if t.day|date("U") == x %}
                                         {% set ismy = t.team.id == team.id ? true : false %}
                                         {% set color = ismy ? "warning" : "info" %}
-                                        <tr class="{{ color }}"><td
+                                        <tr class="{{ color }} pointerhand"><td
                                                     data-toggle="popover" data-content="
                                             <table class='table'><tr class='{{ color }}'><th>Čas</th><td>
                                             {{ t.start|date("H:i") }} - {{ t.end|date("H:i") }}
@@ -64,7 +68,14 @@
                                                 <a onclick='return confirm(\'Opravdu chcete potvrdi tento termín soupeři?\')' href='{{ path("term_confirm", {'id':t.id}) }}' class='btn btn-success'><span class='glyphicon glyphicon-ok'></span> Potvrdit tento termín</a>
                                             {% endif %}
                                             "
-                                                    >{{ t.start|date("H:i") }} - {{ t.end|date("H:i") }}</td></tr>
+                                                    >{{ t.start|date("H:i") }} - {{ t.end|date("H:i") }}
+                                                {% if ismy %}
+                                                    <span class="glyphicon glyphicon-pencil"></span>
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                {% else %}
+                                                    <span class="glyphicon glyphicon-ok"></span>
+                                                {% endif %}
+                                            </td></tr>
                                     {% endif %}
                                 {% endfor %}
                             </table>

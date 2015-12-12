@@ -23,6 +23,8 @@
                 <td>
                     {% if not game.done %}
                         <a href="{{ path('team_game', { 'id': game.id }) }}">Plánování</a>
+                    {% else %}
+                        Dokončeno {{ game.aResultA }}:{{ game.aResultB }}
                     {% endif %}
                 </td>
             </tr>

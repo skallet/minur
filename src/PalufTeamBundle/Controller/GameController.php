@@ -17,6 +17,10 @@ class GameController extends Controller
      */
     public function indexAction(Game $game, Request $request)
     {
+        if($game->getDone()) {
+
+        }
+
         $userTeam = $this->get('security.token_storage')->getToken()->getUser()->getUser();
         if ($game->getTeamA()->getId() !== $userTeam->getId()
             && $game->getTeamB()->getId() !== $userTeam->getId()) {
