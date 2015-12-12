@@ -12,6 +12,10 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->redirect('/page/1', 302);
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect('/team/tournaments', 302);
+        }
+        return $this->redirect('/tournament', 302);
     }
 }
