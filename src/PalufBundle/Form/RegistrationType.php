@@ -25,7 +25,7 @@ class RegistrationType extends AbstractType
             ->add('password', PasswordType::class)
             ->add('passwordCheck', PasswordType::class)
             ->add('name')
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, ["required"=>false])
             ->add('send', SubmitType::class)
         ;
     }

@@ -25,7 +25,7 @@ class RegistrationData
      * @var string
      *
      * @Assert\NotBlank()
-     * @Assert\Length(min="4", minMessage="password.error.short")
+     * @Assert\Length(min="4", minMessage="Heslo je příliš krátké, minimum jsou 4 znaky.")
      */
     public $password;
 
@@ -46,12 +46,11 @@ class RegistrationData
     /**
      * @var string
      *
-     * @Assert\NotBlank()
      */
     public $description;
 
     /**
-     * @Assert\IsTrue(message="password.error.different")
+     * @Assert\IsTrue(message="Zadaná hesla nejsou stejná")
      * @return bool
      */
     public function isPasswordLegal()

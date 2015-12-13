@@ -48,7 +48,7 @@ class Team implements  UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=800)
+     * @ORM\Column(name="description", type="string", length=800, nullable=true)
      */
     private $description;
 

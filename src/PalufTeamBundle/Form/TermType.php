@@ -15,7 +15,7 @@ class TermType extends AbstractType
             ->add('start')
             ->add('end')
             ->add('place')
-            ->add('gps')
+            ->add('gps', NULL, ["required" => false])
             ->add('count')
         ;
     }

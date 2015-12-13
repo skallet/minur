@@ -19,6 +19,9 @@ class TournamentController extends Controller
         /** @var Team $user */
         $userTeam = $this->get('security.token_storage')->getToken()->getUser()->getUser();
         $games = [];
+        if($userTeam instanceof \PalufBundle\Entity\Admin) {
+            return $this->redirect('/admin/tournament', 302);
+        }
         /** @var Tournament $tournament */
         foreach ($userTeam->getTournaments() as $tournament) {
             /** @var Game $game */

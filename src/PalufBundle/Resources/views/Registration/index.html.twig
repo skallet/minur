@@ -5,7 +5,49 @@
 {% block body %}
     <h1>Team registration</h1>
 
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'id': 'signupForm'}}) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
+
+    <script>
+
+        $().ready(function() {
+
+
+            // validate signup form on keyup and submit
+            $("#signupForm").validate({
+                rules: {
+                    registration_name: "required",
+                    registration_password: {
+                        required: true,
+                        minlength: 4
+                    },
+                    registration_passwordCheck: {
+                        required: true,
+                        minlength: 4,
+                        equalTo: "#registration_password"
+                    },
+                    registration_email: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    registration_name: "Zadejte prosím jméno týmu",
+                    registration_password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 5 characters long"
+                    },
+                    registration_passwordCheck: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 5 characters long",
+                        equalTo: "Please enter the same password as above"
+                    },
+                    registration_email: "Zadejte prosím platnou emailovou adresu"
+                }
+            });
+
+
+        });
+    </script>
 {% endblock %}

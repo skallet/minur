@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ tournament.name }}</h1>
-
+    <h1>{{ tournament.name }}
+        {% if date() <= tournament.deadline %}
+            <a class="btn btn-success btn-lg" href="{{ path("registration_page") }}">Přihlásit tým</a>
+        {% endif %}
+    </h1>
     <div class="tabs">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
