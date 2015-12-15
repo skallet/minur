@@ -22,7 +22,7 @@ class ScoreType extends AbstractType
         $builder
             ->add('resultA', NumberType::class)
             ->add('resultB', NumberType::class)
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, ['label' => 'Uložit výsledek'])
         ;
     }
 

@@ -20,7 +20,7 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('text', TextareaType::class)
-            ->add('send', SubmitType::class)
+            ->add('send', SubmitType::class, ['label' => 'Vložit komentář'])
         ;
     }
 
