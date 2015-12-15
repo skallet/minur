@@ -5,12 +5,8 @@
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <a href="{{ path('team_game', {'id': game.id}) }}">Zpět na zápas</a>
+        <input type="submit" value="Vytvořit návrh" />
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('team_game', {'id': game.id}) }}">Zpět na zápas</a>
-        </li>
-    </ul>
+    
 {% endblock %}
