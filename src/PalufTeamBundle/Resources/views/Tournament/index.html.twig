@@ -3,14 +3,17 @@
 {% block title %}PalufTeamBundle:Tournament:index{% endblock %}
 
 {% block body %}
-    <h1>Přihlášené zápasy</h1>
+    <h1>Plánování zápasů</h1>
 
     <table class="table table-striped table-hover">
         <thead>
         <tr>
             <th>Team A</th>
             <th>Team B</th>
-            <th>Stav</th>
+            <th>Datum</th>
+            <th>Čas</th>
+            <th>Místo</th>
+            <th>Skóre</th>
             <th>Akce</th>
         </tr>
         </thead>
@@ -19,12 +22,45 @@
             <tr>
                 <td>{{ game.teamA.name }}</td>
                 <td>{{ game.teamB.name }}</td>
-                <td>{% if game.done %}Ukončeno{% else %}Probíhá{% endif %}</td>
+                <td>
+                    {% if game.finalTerm %}
+                        {{ game.finalTerm.day.format('d. m. Y') }}
+                    {% else %}
+                        ?
+                    {% endif %}
+                </td>
+                <td>
+                    {% if game.finalTerm %}
+                        {{ game.finalTerm.start.format('H:i') }} - {{ game.finalTerm.end.format('H:i') }}
+                    {% else %}
+                        ?
+                    {% endif %}
+                </td>
+                <td>
+                    {% if game.finalTerm %}
+                        {{ game.finalTerm.place }}
+                    {% else %}
+                        ?
+                    {% endif %}
+                </td>
+                <td>
+                    {% if game.aResult1 and game.bResult1 and game.aResult1 == game.bResult1 and game.aResult2 == game.bResult2 %}
+                        {{ game.aResult1 }} : {{ game.aResult2 }}
+                    {% else %}
+                        ? : ?
+                    {% endif %}
+                </td>
                 <td>
                     {% if not game.done %}
-                        <a href="{{ path('team_game', { 'id': game.id }) }}">Plánování</a>
+                        <a href="{{ path('team_game', { 'id': game.id }) }}">
+                            {% if not game.finalTerm %}
+                                Domluvit termín 
+                            {% else %}
+                                Zadat skóre
+                            {% endif %}
+                        </a>
                     {% else %}
-                        {{ game.aResult1 }}:{{ game.aResult2 }}
+                        Zápas byl již odehrán.
                     {% endif %}
                 </td>
             </tr>
