@@ -77,8 +77,9 @@
                                     <td>
                                         {% if game.finalTerm %}
                                             {{ game.finalTerm.day |date("d. m. Y") }}
-                                            od
-                                            {{ game.finalTerm.start |date("H:i") }} do {{ game.finalTerm.end |date("H:i") }}
+                                            (
+                                            {{ game.finalTerm.start |date("H:i") }} - {{ game.finalTerm.end |date("H:i") }}
+                                            )
                                         {% else %} ?
                                         {% endif %}
                                     </td>

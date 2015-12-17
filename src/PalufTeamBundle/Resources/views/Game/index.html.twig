@@ -23,7 +23,7 @@
         <div class="alert alert-success">
             Potvrzený termín: {{ game.finalTerm.day|date("D d. m. Y") }} od {{ game.finalTerm.start|date("H:i") }} do {{ game.finalTerm.end|date("H:i") }}<br>
             Místo: {{ game.finalTerm.place }} {{ game.finalTerm.gps }}
-            <a href="{{ path("term_unconfirm", {"id": game.finalTerm.id}) }}" onclick="return confirm('Opravdu chcete zrušit potvrzení termínu?')" class="btn btn-danger">Zrušit potvrzení</a>
+            <a href="{{ path("term_unconfirm", {"id": game.finalTerm.id}) }}" onclick="return confirm('Opravdu chcete zrušit potvrzení termínu?')" class="pull-right">Zrušit potvrzení</a>
         </div>
     {% else %}
 
