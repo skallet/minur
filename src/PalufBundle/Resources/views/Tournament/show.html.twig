@@ -11,7 +11,7 @@
             <div class="col-sm-6 col-sm-offset-3">
 
                 <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
+                <ul class="nav nav-tabs" role="tablist" style="margin-bottom:10px">
                     <li role="presentation" class="active"><a href="#detail" aria-controls="home" role="tab" data-toggle="tab">Detail</a></li>
                     <li role="presentation"><a href="#rozpis" aria-controls="profile" role="tab" data-toggle="tab">Rozpis a výsledky zápasů</a></li>
                     <li role="presentation"><a href="#tymy" aria-controls="messages" role="tab" data-toggle="tab">Přihlášené týmy</a></li>
@@ -55,7 +55,7 @@
                             </tr>
 
                             <tr>
-                                <th>Přihlašování</th>
+                                <th>Uzávěrka přihlašování</th>
                                 <td>
                                     {{ tournament.deadline |date("d. m. Y H:i") }}
                                 </td>
@@ -64,55 +64,63 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="rozpis">
-                        <table class="table table-hover">
-                            <tr>
-                                <th>Datum a čas</th>
-                                <th>Místo</th>
-                                <th>Tým 1</th>
-                                <th>Tým 2</th>
-                                <th>Skóre</th>
-                            </tr>
-                            {% for game in tournament.games %}
+                        {% if tournament.games is empty %}
+                            <p>Rozpis zápasů bude zveřejněn až před začátkem turnaje.</p>
+                        {% else %}
+                            <table class="table table-hover">
                                 <tr>
-                                    <td>
-                                        {% if game.finalTerm %}
-                                            {{ game.finalTerm.day |date("d. m. Y") }}
-                                            (
-                                            {{ game.finalTerm.start |date("H:i") }} - {{ game.finalTerm.end |date("H:i") }}
-                                            )
-                                        {% else %} ?
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if game.finalTerm %}
-                                            {{ game.finalTerm.place }}
-                                            {{ game.finalTerm.gps }}
-                                        {% else %} ?
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {{ game.teamA.name }}
-                                    </td>
-                                    <td>
-                                        {{ game.teamB.name }}
-                                    </td>
-                                    <td>
-                                        {% if game.done %}
-                                            {{ game.aResult1 }}:{{ game.aResult2 }}
-                                        {% else %} ?:?
-                                        {% endif %}
-                                    </td>
+                                    <th>Datum a čas</th>
+                                    <th>Místo</th>
+                                    <th>Tým 1</th>
+                                    <th>Tým 2</th>
+                                    <th>Skóre</th>
                                 </tr>
-                            {% endfor %}
-                        </table>
+                                {% for game in tournament.games %}
+                                    <tr>
+                                        <td>
+                                            {% if game.finalTerm %}
+                                                {{ game.finalTerm.day |date("d. m. Y") }}
+                                                (
+                                                {{ game.finalTerm.start |date("H:i") }} - {{ game.finalTerm.end |date("H:i") }}
+                                                )
+                                            {% else %} ?
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if game.finalTerm %}
+                                                {{ game.finalTerm.place }}
+                                                {{ game.finalTerm.gps }}
+                                            {% else %} ?
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {{ game.teamA.name }}
+                                        </td>
+                                        <td>
+                                            {{ game.teamB.name }}
+                                        </td>
+                                        <td>
+                                            {% if game.done %}
+                                                {{ game.aResult1 }}:{{ game.aResult2 }}
+                                            {% else %} ?:?
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        {% endif %}
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="tymy">
-                        <ul>
-                            {% for team in tournament.teams %}
-                                <li>{{ team.name }}</li>
-                            {% endfor %}
-                        </ul>
+                        {% if tournament.teams is empty %}
+                            <p>Přihlášené týmy budou zveřejněny až po uzávěrce přihlašování.</p>
+                        {% else %}
+                            <ul>
+                                {% for team in tournament.teams %}
+                                    <li>{{ team.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -41,7 +41,7 @@ class RegistrationController extends Controller
 
                 $token = new UsernamePasswordToken(new PalufUser($team), null, 'main', $team->getRoles());
                 $this->get('security.token_storage')->setToken($token);
-                $this->get('session')->getFlashBag()->add('notice', 'Registrace úspěšná.');
+                $this->get('session')->getFlashBag()->add('notice', 'Registrace byla úspěšná.');
 
                 return $this->redirectToRoute('landingpage');
             } catch (UniqueConstraintViolationException $e) {
