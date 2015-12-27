@@ -96,7 +96,33 @@
         <tr>
             <td class="table-bordered">
                 {{ form_start(score_form) }}
-                {{ form_widget(score_form) }}
+                <label>
+                    Tým
+                    {% if team.id == game.teamA.id %}
+                        {{ team.name }}
+                    {% else %}
+                        {{ game.teamA.name }}
+                    {% endif %}
+
+                    {{ form_errors(score_form.resultA) }}
+                    {{ form_widget(score_form.resultA) }}
+                </label>
+
+                :
+
+                <label>
+                    Tým
+                    {% if team.id == game.teamB.id %}
+                        {{ team.name }}
+                    {% else %}
+                        {{ game.teamB.name }}
+                    {% endif %}
+
+                    {{ form_errors(score_form.resultB) }}
+                    {{ form_widget(score_form.resultB) }}
+                </label>
+
+                {{ form_row(score_form.submit) }}
                 {{ form_end(score_form) }}
             </td>
             <td>
