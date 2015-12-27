@@ -15,8 +15,8 @@ class TermType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('start', NULL, ['label' => 'Od'])
-            ->add('end', NULL, ['label' => 'Do'])
+            ->add('start', TimeType::class, ['label' => 'Od'])
+            ->add('end', TimeType::class, ['label' => 'Do'])
             ->add('place', TextType::class, ['label' => 'Místo'])
             ->add('gps', TextType::class, ["required" => false, 'label' => 'GPS souřadnice'])
             ->add('count', IntegerType::class, ['label' => 'Počet hráčů'])

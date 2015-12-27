@@ -3,6 +3,7 @@
 namespace PalufBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Term
@@ -32,6 +33,10 @@ class Term
      * @var \DateTime
      *
      * @ORM\Column(name="start", type="time")
+     * @Assert\Expression(
+     *     "this.getStart() <= this.getEnd()",
+     *     message="Začátek musí být před koncem."
+     * )
      */
     private $start;
 
