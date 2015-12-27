@@ -46,8 +46,8 @@
                                         {% if t.day|date("U") == x %}
                                             {% set ismy = t.team.id == team.id ? true : false %}
                                             {% set color = ismy ? "warning" : "info" %}
-                                            <tr class="{{ color }} pointerhand"><td
-                                                        data-toggle="popover" data-content="
+                                            <tr class="{{ color }} pointerhand"><td><a href="#" style="color: #000; text-decoration: none; width: 100%; margin: 0; padding: 0; display: block"
+                                                        data-toggle="popover" data-trigger="focus" data-content="
                                                 <table class='table'><tr class='{{ color }}'><th>Čas</th><td>
                                                 {{ t.start|date("H:i") }} - {{ t.end|date("H:i") }}
                                                 </td></tr><tr class='{{ color }}'><th>Místo</th><td>
@@ -73,7 +73,7 @@
                                                     {% else %}
                                                         <span class="glyphicon glyphicon-ok"></span>
                                                     {% endif %}
-                                                </td></tr>
+                                                </a></td></tr>
                                         {% endif %}
                                     {% endfor %}
                                 </table>
@@ -173,9 +173,8 @@
 
     <script>
         $(function(){
-            $('.terms td').popover({
-                "html": "on",
-                // "trigger": "focus",  proc to nejde vi buh
+            $('.terms td a').popover({
+                html: "on"
             });
         });
     </script>
