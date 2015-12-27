@@ -65,6 +65,7 @@ class Term
      * @var int
      *
      * @ORM\Column(name="count", type="integer")
+     * @Assert\GreaterThan(value=0, message="Hodnota musí být větší než 0.")
      */
     private $count;
 
