@@ -25,7 +25,7 @@ class RegistrationData
      * @var string
      *
      * @Assert\NotBlank()
-     * @Assert\Length(min="4", minMessage="Heslo je příliš krátké, minimum jsou 4 znaky.")
+     * @Assert\Length(min="5", minMessage="Heslo je příliš krátké, minimum jsou 5 znaky.")
      */
     public $password;
 

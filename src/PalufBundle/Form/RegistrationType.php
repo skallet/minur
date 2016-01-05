@@ -24,7 +24,7 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, array('label' => 'Emailová adresa:'))
-            ->add('password', PasswordType::class, array('label' => 'Heslo:'))
+            ->add('password', PasswordType::class, array('label' => 'Heslo (minimálně 5 znaků):'))
             ->add('passwordCheck', PasswordType::class, array('label' => 'Zopakujte heslo:'))
             ->add('name', TextType::class, array('label' => 'Název týmu:'))
             ->add('description', TextareaType::class, ["required" => false, 'label' => 'O týmu:'])
