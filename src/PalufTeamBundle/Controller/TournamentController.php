@@ -35,7 +35,7 @@ class TournamentController extends Controller
 
         return $this->render('PalufTeamBundle:Tournament:index.html.twig', array(
             'team' => $userTeam,
-            'games' => $games,
+            'games' => array_reverse($games),
         ));
     }
 
