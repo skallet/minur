@@ -92,59 +92,63 @@
     {% endif %}
 
     <h3>Výsledek</h3>
-    <table class="table">
-        <tr>
-            <td class="table-bordered">
-                {{ form_start(score_form) }}
-                <label>
-                    Tým
-                    {% if team.id == game.teamA.id %}
-                        {{ team.name }}
-                    {% else %}
-                        {{ game.teamA.name }}
+    {% if game.finalTerm %}
+        <table class="table">
+            <tr>
+                <td class="table-bordered">
+                    {{ form_start(score_form) }}
+                    <label>
+                        Tým
+                        {% if team.id == game.teamA.id %}
+                            {{ team.name }}
+                        {% else %}
+                            {{ game.teamA.name }}
+                        {% endif %}
+
+                        {{ form_errors(score_form.resultA) }}
+                        {{ form_widget(score_form.resultA) }}
+                    </label>
+
+                    :
+
+                    <label>
+                        Tým
+                        {% if team.id == game.teamB.id %}
+                            {{ team.name }}
+                        {% else %}
+                            {{ game.teamB.name }}
+                        {% endif %}
+
+                        {{ form_errors(score_form.resultB) }}
+                        {{ form_widget(score_form.resultB) }}
+                    </label>
+
+                    {{ form_row(score_form.submit) }}
+                    {{ form_end(score_form) }}
+                </td>
+                <td>
+
+                </td>
+                {% if team.id == game.teamA.id %}
+                    {% if game.bResult1 != null %}
+                        <td class="table-bordered">
+                            Výsledek zadaný soupeřem: {{ game.bResult1 }}:{{ game.bResult2 }}
+                            <a class="btn btn-success btn-lg" href="{{ path('team_game_confirm', { 'id': game.id }) }}">Potvrdit soupeřův výsledek</a>
+                        </td>
                     {% endif %}
-
-                    {{ form_errors(score_form.resultA) }}
-                    {{ form_widget(score_form.resultA) }}
-                </label>
-
-                :
-
-                <label>
-                    Tým
-                    {% if team.id == game.teamB.id %}
-                        {{ team.name }}
-                    {% else %}
-                        {{ game.teamB.name }}
+                {% else %}
+                    {% if game.aResult1 != null %}
+                        <td class="table-bordered">
+                            Výsledek zadaný soupeřem: {{ game.aResult1 }}:{{ game.aResult2 }}
+                            <a class="btn btn-success btn-lg" href="{{ path('team_game_confirm', { 'id': game.id }) }}">Potvrdit soupeřův výsledek</a>
+                        </td>
                     {% endif %}
-
-                    {{ form_errors(score_form.resultB) }}
-                    {{ form_widget(score_form.resultB) }}
-                </label>
-
-                {{ form_row(score_form.submit) }}
-                {{ form_end(score_form) }}
-            </td>
-            <td>
-
-            </td>
-            {% if team.id == game.teamA.id %}
-                {% if game.bResult1 != null %}
-                    <td class="table-bordered">
-                        Výsledek zadaný soupeřem: {{ game.bResult1 }}:{{ game.bResult2 }}
-                        <a class="btn btn-success btn-lg" href="{{ path('team_game_confirm', { 'id': game.id }) }}">Potvrdit soupeřův výsledek</a>
-                    </td>
                 {% endif %}
-            {% else %}
-                {% if game.aResult1 != null %}
-                    <td class="table-bordered">
-                        Výsledek zadaný soupeřem: {{ game.aResult1 }}:{{ game.aResult2 }}
-                        <a class="btn btn-success btn-lg" href="{{ path('team_game_confirm', { 'id': game.id }) }}">Potvrdit soupeřův výsledek</a>
-                    </td>
-                {% endif %}
-            {% endif %}
-        </tr>
-    </table>
+            </tr>
+        </table>
+    {% else %}
+        <i>Výsledek je možné zadat až po domluvení termínu.</i>
+    {% endif %}
 
 
     <h3>Komentáře</h3>
