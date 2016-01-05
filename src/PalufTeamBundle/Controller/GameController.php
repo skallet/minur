@@ -129,7 +129,7 @@ class GameController extends Controller
         $em->flush();
 
         $this->get('session')->getFlashBag()->add('notice', 'Výsledek zápasu byl úspěšně potvrzen.');
-        return $this->redirect($this->generateUrl('team_game', [
+        return $this->redirect($this->generateUrl('team_tournaments', [
             'id' => $game->getId(),
         ]));
     }
