@@ -15,6 +15,7 @@
             <tr>
                 <td>
                     <a href="{{ path("tournament_show", {"id": tournament.id}) }}">{{ tournament.name }}</a>
+                    <a href="{{ path("tournament_show", {"id": tournament.id}) }}" class="btn btn-primary btn-xs">detail</a>
                 </td>
                 <td>
                     {{ tournament.start |date('d. m. Y') }}
