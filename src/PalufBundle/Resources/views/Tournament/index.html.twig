@@ -35,6 +35,9 @@
                             {% endif %}
                         {% else %}
                             probíhá přihlašování
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') == false %}
+                                <a class="btn btn-success" href="{{ path('registration_page') }}">Zaregistrovat tým</a>
+                            {% endif %}
                         {% endif %}
                     {% elseif tournament.start <= date() and tournament.end >= date() %}
                         probíhá
