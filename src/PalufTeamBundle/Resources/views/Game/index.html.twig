@@ -132,7 +132,11 @@
                 {% if team.id == game.teamA.id %}
                     {% if game.bResult1 != null %}
                         <td class="table-bordered">
-                            Výsledek zadaný soupeřem: {{ game.bResult1 }}:{{ game.bResult2 }}
+                            <div>
+                                Výsledek zadaný soupeřem: <br />
+                                <strong>{{ game.teamB.name }} : {{ game.teamA.name }}</strong> <br />
+                                <strong>{{ game.bResult1 }} : {{ game.bResult2 }}</strong>
+                            </div>
                             <a class="btn btn-success btn-lg"
                                href="{{ path('team_game_confirm', { 'id': game.id }) }}"
                                onclick="return confirm('Jedná se o nevratnou akci, opravdu chcete výsledek potvrdit?')"
@@ -142,7 +146,11 @@
                 {% else %}
                     {% if game.aResult1 != null %}
                         <td class="table-bordered">
-                            Výsledek zadaný soupeřem: {{ game.aResult1 }}:{{ game.aResult2 }}
+                            <div>
+                                Výsledek zadaný soupeřem: <br />
+                                <strong>{{ game.teamA.name }} : {{ game.teamB.name }}</strong> <br />
+                                <strong>{{ game.aResult1 }} : {{ game.aResult2 }}</strong>
+                            </div>
                             <a class="btn btn-success btn-lg"
                                href="{{ path('team_game_confirm', { 'id': game.id }) }}"
                                onclick="return confirm('Jedná se o nevratnou akci, opravdu chcete výsledek potvrdit?')"
