@@ -96,6 +96,7 @@ class Game
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="game")
+     * @ORM\OrderBy({"datetime" = "DESC"})
      */
     private $comments;
 
