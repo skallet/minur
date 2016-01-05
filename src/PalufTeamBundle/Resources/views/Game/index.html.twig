@@ -133,14 +133,20 @@
                     {% if game.bResult1 != null %}
                         <td class="table-bordered">
                             Výsledek zadaný soupeřem: {{ game.bResult1 }}:{{ game.bResult2 }}
-                            <a class="btn btn-success btn-lg" href="{{ path('team_game_confirm', { 'id': game.id }) }}">Potvrdit soupeřův výsledek</a>
+                            <a class="btn btn-success btn-lg"
+                               href="{{ path('team_game_confirm', { 'id': game.id }) }}"
+                               onclick="return confirm('Jedná se o nevratnou akci, opravdu chcete výsledek potvrdit?')"
+                            >Potvrdit soupeřův výsledek</a>
                         </td>
                     {% endif %}
                 {% else %}
                     {% if game.aResult1 != null %}
                         <td class="table-bordered">
                             Výsledek zadaný soupeřem: {{ game.aResult1 }}:{{ game.aResult2 }}
-                            <a class="btn btn-success btn-lg" href="{{ path('team_game_confirm', { 'id': game.id }) }}">Potvrdit soupeřův výsledek</a>
+                            <a class="btn btn-success btn-lg"
+                               href="{{ path('team_game_confirm', { 'id': game.id }) }}"
+                               onclick="return confirm('Jedná se o nevratnou akci, opravdu chcete výsledek potvrdit?')"
+                            >Potvrdit soupeřův výsledek</a>
                         </td>
                     {% endif %}
                 {% endif %}
