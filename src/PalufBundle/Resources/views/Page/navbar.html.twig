@@ -1,5 +1,5 @@
 {% if is_granted("ROLE_TEAM") %}
-    <li><a href="{{ path("team_tournaments") }}">Plánování zápasů</a></li>
+    <li><a href="{{ path("team_tournaments") }}">Seznam mých zápasů</a></li>
 {% endif %}
 <li><a href="{{ path("tournament_index") }}">Turnaje</a></li>
 {% for page in pages %}
