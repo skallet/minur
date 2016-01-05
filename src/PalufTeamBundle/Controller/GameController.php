@@ -58,11 +58,13 @@ class GameController extends Controller
                 $game->setBResult2($data->resultB);
             }
 
+
             $em->persist($game);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add('notice', 'Skóre bylo úspěšně nastaveno.');
             return $this->redirect($request->getRequestUri());
-        } else {
+        } else if (!$scoreForm->isSubmitted()) {
             $scoreData = new ScoreData();
 
             if ($userTeam->getId() == $game->getTeamA()->getId()) {
@@ -126,6 +128,7 @@ class GameController extends Controller
         $em->persist($game);
         $em->flush();
 
+        $this->get('session')->getFlashBag()->add('notice', 'Výsledek zápasu byl úspěšně potvrzen.');
         return $this->redirect($this->generateUrl('team_game', [
             'id' => $game->getId(),
         ]));

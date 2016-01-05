@@ -17,12 +17,24 @@ class ScoreData
     /**
      * @var int
      * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 15,
+     *      minMessage = "Skóre musí být kladné",
+     *      maxMessage = "Maximální skóré je {{ limit }}"
+     * )
      */
     public $resultA;
 
     /**
      * @var int
      * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 15,
+     *      minMessage = "Skóre musí být kladné",
+     *      maxMessage = "Maximální skóré je {{ limit }}"
+     * )
      */
     public $resultB;
 
